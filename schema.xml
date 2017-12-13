@@ -60,7 +60,7 @@
         <filter class="solr.CJKWidthFilterFactory"/>
         <filter class="solr.JapaneseKatakanaStemFilterFactory" minimumLength="4"/>
         <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.JapaneseReadingFormFilterFactory" useRomaji="true"/>
+        <filter class="solr.JapaneseReadingFormFilterFactory" useRomaji="false"/>
         <filter class="solr.JapaneseBaseFormFilterFactory"/>
       </analyzer>
       <analyzer type="query">
@@ -73,7 +73,7 @@
         <filter class="solr.CJKWidthFilterFactory"/>
         <filter class="solr.JapaneseKatakanaStemFilterFactory" minimumLength="4"/>
         <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.JapaneseReadingFormFilterFactory" useRomaji="true"/>
+        <filter class="solr.JapaneseReadingFormFilterFactory" useRomaji="false"/>
         <filter class="solr.JapaneseBaseFormFilterFactory"/>
         <filter class="solr.SynonymFilterFactory" synonyms="lang/synonym.txt" ignoreCase="true" expand="true"/>
       </analyzer>
