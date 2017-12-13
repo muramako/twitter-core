@@ -105,7 +105,7 @@
     <lst name="defaults">
       <str name="echoParams">explicit</str>
       <int name="rows">10</int>
-      <str name="df">title_ja</str>
+      <str name="df">tweet_ja</str>
     </lst>
     <!--
     <arr name="last-components">
@@ -119,7 +119,7 @@
        <str name="echoParams">explicit</str>
        <str name="wt">json</str>
        <str name="indent">true</str>
-       <str name="df">title_ja</str>
+       <str name="df">tweet_ja</str>
        <int name="rows">10</int>
      </lst>
   </requestHandler>
