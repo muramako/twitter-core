@@ -75,7 +75,7 @@
         <filter class="solr.LowerCaseFilterFactory"/>
         <!--<filter class="solr.JapaneseReadingFormFilterFactory" useRomaji="false"/>-->
         <filter class="solr.JapaneseBaseFormFilterFactory"/>
-        <filter class="solr.SynonymFilterFactory" synonyms="lang/synonym.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.SynonymFilterFactory" synonyms="lang/synonym.txt" ignoreCase="true" expand="true" tokenizerFactory="solr.JapaneseTokenizerFactory" userDictionary="lang/userdict.txt"/>
       </analyzer>
     </fieldType>
 
