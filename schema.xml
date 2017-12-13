@@ -9,7 +9,7 @@
 
     <!-- fields for search start-->
     <field name="tweet"     type="string"   indexed="true" stored="true"  omitNorms="false" />
-    <field name="tweet_ja"  type="text_en"  indexed="true" stored="false" />
+    <field name="tweet_ja"  type="text_ja"  indexed="true" stored="false" />
     <field name="tweet_cjk" type="text_cjk" indexed="true" stored="false" />
 
     <field name="username"  type="string"   indexed="true" stored="true"  omitNorms="false" docValues="true" />
