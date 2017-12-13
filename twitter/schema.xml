@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="twitter" version="1.5">
+    <field name="_version_" type="long" indexed="true" stored="true"/>
+    <field name="_root_" type="string" indexed="true" stored="false"/>
+
+    <!-- fields for categorize start-->
+    <field name="uid"     type="string" indexed="true" stored="true" required="true" />
+    <!-- fields for categorize end-->
+
+    <!-- fields for search start-->
+    <field name="tweet"     type="string"   indexed="true" stored="true"  omitNorms="false" />
+    <field name="tweet_ja"  type="text_en"  indexed="true" stored="false" />
+    <field name="tweet_cjk" type="text_cjk" indexed="true" stored="false" />
+
+    <field name="username"  type="string"   indexed="true" stored="true"  omitNorms="false" docValues="true" />
+    <!-- fields for search end-->
+
+    <!-- fields for date start-->
+    <field name="date"           type="date" indexed="true" stored="true" docValues="true" />
+    <field name="processingtime" type="date" indexed="true" stored="true" default="NOW+9HOURS"/>
+    <!-- fields for date end-->
+
+
+    <uniqueKey>uid</uniqueKey>
+
+    <copyField source="tweet" dest="tweet_ja"/>
+    <copyField source="tweet" dest="tweet_cjk"/>
+
+    <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
+
+    <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
+
+    <fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="float" class="solr.TrieFloatField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="double" class="solr.TrieDoubleField" precisionStep="0" positionIncrementGap="0"/>
+
+    <fieldType name="tint" class="solr.TrieIntField" precisionStep="8" positionIncrementGap="0"/>
+    <fieldType name="tfloat" class="solr.TrieFloatField" precisionStep="8" positionIncrementGap="0"/>
+    <fieldType name="tlong" class="solr.TrieLongField" precisionStep="8" positionIncrementGap="0"/>
+    <fieldType name="tdouble" class="solr.TrieDoubleField" precisionStep="8" positionIncrementGap="0"/>
+
+    <fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0"/>
+
+    <fieldType name="tdate" class="solr.TrieDateField" precisionStep="6" positionIncrementGap="0"/>
+
+
+    <fieldtype name="binary" class="solr.BinaryField"/>
+
+    <fieldType name="random" class="solr.RandomSortField" indexed="true" />
+
+    <fieldType name="text_ja" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="true">
+      <analyzer type="index">
+        <charFilter class="solr.MappingCharFilterFactory" mapping="lang/mapping.txt"/>
+        <tokenizer class="solr.JapaneseTokenizerFactory" mode="normal" discardPunctuation="true" userDictionary="lang/userdict.txt"/>
+        <!--
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_en.txt" />
+        -->
+        <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false"/>
+        <filter class="solr.CJKWidthFilterFactory"/>
+        <filter class="solr.JapaneseKatakanaStemFilterFactory" minimumLength="4"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.JapaneseReadingFormFilterFactory" useRomaji="true"/>
+        <filter class="solr.JapaneseBaseFormFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <charFilter class="solr.MappingCharFilterFactory" mapping="lang/mapping.txt"/>
+        <tokenizer class="solr.JapaneseTokenizerFactory" mode="normal" discardPunctuation="true" userDictionary="lang/userdict.txt"/>
+        <!--
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_en.txt" />
+        -->
+        <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false"/>
+        <filter class="solr.CJKWidthFilterFactory"/>
+        <filter class="solr.JapaneseKatakanaStemFilterFactory" minimumLength="4"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.JapaneseReadingFormFilterFactory" useRomaji="true"/>
+        <filter class="solr.JapaneseBaseFormFilterFactory"/>
+        <filter class="solr.SynonymFilterFactory" synonyms="lang/synonym.txt" ignoreCase="true" expand="true"/>
+      </analyzer>
+    </fieldType>
+
+    <fieldType name="text_cjk" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="true">
+      <analyzer>
+        <charFilter class="solr.MappingCharFilterFactory" mapping="lang/mapping.txt"/>
+        <!--<charFilter class="solr.PatternReplaceCharFilterFactory" pattern="(.{3,})ー$" replacement="$1"/>-->
+        <tokenizer class="solr.NGramTokenizerFactory" minGramSize="2" maxGramSize="2"/>
+        <filter class="solr.CJKWidthFilterFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+    </fieldType>
+
+</schema>
